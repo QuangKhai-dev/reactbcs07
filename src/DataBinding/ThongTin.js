@@ -5,6 +5,7 @@ export default class ThongTin extends Component {
   sinhVien = {
     hoTen: 'Nam',
   };
+  login = false;
 
   hienThiHinhAnh() {
     return 'https://i.pravatar.cc/500?u=5';
@@ -24,6 +25,11 @@ export default class ThongTin extends Component {
         <p>{hoTen}</p>
         <p>{this.hienThiObject()}</p>
         <p>{this.namSinh}</p>
+        {this.login ? (
+          <p>Nguyễn Văn A</p>
+        ) : (
+          <button className="btn btn-success">Login</button>
+        )}
       </div>
     );
   }
