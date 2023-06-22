@@ -14,6 +14,7 @@ import Ex_Car from './Ex_Car/Ex_Car';
 import Ex_Car_v2 from './Ex_Car_v2/Ex_Car_v2';
 import DemoProps from './Props/DemoProps';
 import ListPhone from './Props/ListPhone/ListPhone';
+import App from './App';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -31,6 +32,7 @@ root.render(
     {/* <Ex_Car /> */}
     {/* <Ex_Car_v2 /> */}
     {/* <DemoProps /> */}
-    <ListPhone />
+    {/* <ListPhone /> */}
+    <App />
   </>
 );
