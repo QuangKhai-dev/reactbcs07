@@ -13,7 +13,7 @@ export default class Home extends Component {
     return (
       <div>
         {/* bs5-navbar-background  */}
-        <nav className="navbar navbar-expand-sm navbar-dark bg-primary">
+        <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
           <a className="navbar-brand" href="#">
             Navbar
           </a>
@@ -62,25 +62,10 @@ export default class Home extends Component {
                   Login
                 </NavLink>
               </li>
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  href="#"
-                  id="dropdownId"
-                  data-bs-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <div className="dropdown-menu" aria-labelledby="dropdownId">
-                  <a className="dropdown-item" href="#">
-                    Action 1
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Action 2
-                  </a>
-                </div>
+              <li>
+                <NavLink to={'/form'} className="nav-link">
+                  React Form
+                </NavLink>
               </li>
             </ul>
             <form className="d-flex my-2 my-lg-0">
@@ -98,9 +83,9 @@ export default class Home extends Component {
             </form>
           </div>
         </nav>
+        <Outlet />
         <div className="bg-dark text-white text-center fs-3">Footer</div>
         {/* outlet đóng vai trò hiển thị các component của route con nằm bên trong route chính đang chứa component Home  */}
-        <Outlet />
       </div>
     );
   }
