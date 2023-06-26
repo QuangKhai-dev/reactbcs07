@@ -21,7 +21,7 @@ export default class FormProduct extends Component {
       descrip: '',
     },
     // activeButton sẽ là state giúp thay đổi trạng thái disable của button submit
-    activeButton: false,
+    activeButton: true,
   };
   getValueInput = (event) => {
     let { value, id } = event.target;
@@ -37,7 +37,7 @@ export default class FormProduct extends Component {
     let newError = this.state.errors;
     // lấy data attribute được tạo ra ta dùng cú pháp event.target.getAttribute
     let type = event.target.getAttribute('data-type');
-    console.log(type);
+    // console.log(type);
 
     // Check rỗng
     if (newValue[id] == '') {
@@ -64,7 +64,7 @@ export default class FormProduct extends Component {
             // if (!result) {
             //   newError[id] = `${id} phải là số`;
             // }
-            console.log(result);
+            // console.log(result);
             newError[id] = result ? '' : id + 'phải là số';
           }
           break;
@@ -81,17 +81,43 @@ export default class FormProduct extends Component {
       }
     }
 
+    // check người dùng đã fill hết dữ liệu vào các input
+    // check validation : check người dùng không bị lỗi, cụ thể các thuộc tính trong error của state sẽ là chuỗi rỗng
+    let valid = false;
+    // dùng vòng lặp
+    for (let item in this.state.errors) {
+      // console.log(item);
+      // ở đây check nếu thuộc tính trong error mà có chuỗi hoặc các input chưa có dữ liệu thì sẽ set valid = true
+      if (this.state.errors[item] !== '' || this.state.values[item] == '') {
+        valid = true;
+      }
+    }
+
+    // console.log(valid); // false // lỗi thì phải trả true
+
     this.setState({
       values: newValue,
       errors: newError,
+      activeButton: valid,
     });
   };
   handleSubmit = (event) => {
     // chạy một phương thức giúp chặn browser reload lại trang
     event.preventDefault();
-    console.log(this.state);
+    // console.log(this.state);
+    // ở đây dùng phương thức themSanPham được truyền từ props để giúp arrProduct trên component productlist có thể lấy được sản phẩm
+    let sanPham = { ...this.state.values };
+    this.props.themSanPham(sanPham);
+    // let newArrProduct = this.state.arrProduct;
+    // newArrProduct.push(this.state.values);
+    // this.setState({ ...this.state, arrProduct: newArrProduct });
+  };
+  updateSanPham = () => {
+    this.setState();
   };
   render() {
+    // console.log(this.props.sanPham);
+    // console.log(this.props.themSanPham);
     // console.log(this.state.values);
     // bóc tách các thuộc tính lưu các giá trị cảnh báo khi người dùng nhập chưa đúng
     const { id, descrip, image, name, price, productType } = this.state.errors;
@@ -123,6 +149,7 @@ export default class FormProduct extends Component {
                   className="form-control"
                   type="text"
                   id="id"
+                  value={this.state.values.id}
                 />
                 <p>{id}</p>
               </div>
@@ -133,6 +160,7 @@ export default class FormProduct extends Component {
                   className="form-control"
                   type="text"
                   id="image"
+                  value={this.state.values.image}
                 />
                 <p>{image}</p>
               </div>
@@ -147,6 +175,7 @@ export default class FormProduct extends Component {
                   // data-type mà có giá trị letter thì chỉ cho nhập chữ
                   data-type="letter"
                   id="name"
+                  value={this.state.values.name}
                 />
                 <p>{name}</p>
               </div>
@@ -157,6 +186,7 @@ export default class FormProduct extends Component {
                   className="form-control"
                   type="text"
                   id="productType"
+                  value={this.state.values.productType}
                 />
                 <p>{productType}</p>
               </div>
@@ -171,6 +201,7 @@ export default class FormProduct extends Component {
                   // data-type này được tạo ra theo data Attribute là thuộc tính chúng ta tự tạo giúp lưu trữ các giá trị
                   data-type="number"
                   id="price"
+                  value={this.state.values.price}
                 />
                 <p>{price}</p>
               </div>
@@ -181,6 +212,7 @@ export default class FormProduct extends Component {
                   className="form-control"
                   type="text"
                   id="descrip"
+                  value={this.state.values.descrip}
                 />
                 <p>{descrip}</p>
               </div>
@@ -194,7 +226,16 @@ export default class FormProduct extends Component {
             >
               Tạo sản phẩm
             </button>
-            <button className="btn btn-warning">Cập nhật</button>
+            <button
+              className="btn btn-warning"
+              onClick={() => {
+                let sanPham = { ...this.state.values };
+                this.props.capNhatSanPham(sanPham);
+              }}
+              type="button"
+            >
+              Cập nhật
+            </button>
           </div>
         </form>
       </div>
