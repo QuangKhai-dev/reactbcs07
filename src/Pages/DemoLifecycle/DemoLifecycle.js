@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Child from './Child';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 export default class DemoLifecycle extends Component {
   constructor(props) {
     super();
@@ -8,6 +9,9 @@ export default class DemoLifecycle extends Component {
       login: '',
       arrProduct: [],
       number: 1,
+      thongTinNguoiDung: {
+        hoTen: 'Khanh',
+      },
     };
     console.log('constructor');
   }
@@ -97,7 +101,28 @@ export default class DemoLifecycle extends Component {
       <div>
         <h2>Demo LifeCycle</h2>
         <p>{this.state.login}</p>
-        <Child number={this.state.number} />
+        <Child
+          number={this.state.number}
+          // object
+          thongTin={this.state.thongTinNguoiDung}
+        />
+        <button
+          onClick={() => {
+            //shalow compare
+            // ở đây khi gọi tới state để thay đổi dữ liệu nhưng state của chúng ta là một Object, nếu không clone ra trước sẽ gặp một vấn đề liên quan về tham chiếu, lúc này PureComponent sẽ không xác định được props đó đã thay đổi hay chưa nên sẽ bị lỗi cập nhật
+            // let newThongTin =this.state.thongTinNguoiDung;
+            // đây là một object mới
+            let newThongTin = { ...this.state.thongTinNguoiDung };
+            newThongTin.hoTen = 'Long';
+            this.setState({
+              // ...this.state,
+              thongTinNguoiDung: newThongTin,
+            });
+          }}
+          className="btn btn-warning"
+        >
+          Đổi tên
+        </button>
         <button
           onClick={() => {
             this.setState({
@@ -116,7 +141,7 @@ export default class DemoLifecycle extends Component {
           <div className="row">
             {this.state.arrProduct.map((item, index) => {
               // console.log(item);
-              const { image, name, price } = item;
+              const { image, name, price, id } = item;
               return (
                 <div className="col-4" key={index}>
                   <div className="card">
@@ -125,6 +150,18 @@ export default class DemoLifecycle extends Component {
                       {/* // name , gia tien  */}
                       <h3>{name}</h3>
                       <p>{price}</p>
+                      <NavLink
+                        to={`/lifecycle/${id}`}
+                        className="btn btn-danger"
+                        onClick={() => {
+                          this.setState({
+                            ...this.state,
+                            number: this.state.number + 1,
+                          });
+                        }}
+                      >
+                        Get Detail
+                      </NavLink>
                     </div>
                   </div>
                 </div>

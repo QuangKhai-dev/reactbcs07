@@ -29,6 +29,15 @@ export default class HomeTemplate extends Component {
                   Life CyCle
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/demoredux"
+                >
+                  Demo Redux
+                </NavLink>
+              </li>
             </ul>
             <form className="d-flex my-2 my-lg-0">
               <input
