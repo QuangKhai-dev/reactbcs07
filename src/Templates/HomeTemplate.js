@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
+import CartModal from '../Pages/ShoesStore/CartModal';
 
 export default class HomeTemplate extends Component {
   render() {
@@ -38,24 +39,32 @@ export default class HomeTemplate extends Component {
                   Demo Redux
                 </NavLink>
               </li>
+              <li className="nav-item">
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/shoesshop"
+                >
+                  Shoes Store
+                </NavLink>
+              </li>
             </ul>
             <form className="d-flex my-2 my-lg-0">
-              <input
-                className="form-control me-sm-2"
-                type="text"
-                placeholder="Search"
-              />
               <button
-                className="btn btn-outline-success my-2 my-sm-0"
-                type="submit"
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
               >
-                Search
+                Launch demo modal
               </button>
             </form>
           </div>
         </nav>
 
         <Outlet />
+        <CartModal />
+
         <footer className="bg-dark text-white">Footer</footer>
       </>
     );
